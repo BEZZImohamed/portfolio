@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bezzi Mohamed — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0a0e13;
+    --bg-card: #10161e;
+    --bg-card-2: #0d1218;
+    --text: #e3e8ef;
+    --muted: #7c8797;
+    --cyan: #4ee1c2;
+    --blue: #5b9dff;
+    --amber: #ffb454;
+    --violet: #b18cff;
+    --line: #1d2530;
+    --max-width: 720px;
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+
+  html{ scroll-behavior:smooth; }
+
+  body{
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+    background-size: 42px 42px;
+    background-position: -1px -1px;
+  }
+
+  ::selection{ background: var(--cyan); color: #06110d; }
+
+  ::-webkit-scrollbar{ width: 10px; }
+  ::-webkit-scrollbar-track{ background: var(--bg); }
+  ::-webkit-scrollbar-thumb{ background: var(--line); border-radius: 6px; }
+  ::-webkit-scrollbar-thumb:hover{ background: var(--cyan); }
+
+  .container{
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* ---------- Status bar (signature element) ---------- */
+  .status{
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--muted);
+    padding: 28px 0 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .status .dot{
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--amber);
+    box-shadow: 0 0 8px var(--amber);
+    display: inline-block;
+    animation: pulse 2.4s ease-in-out infinite;
+  }
+
+  .status .sep{ color: var(--line); }
+
+  @keyframes pulse{
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.35; }
+  }
+
+  /* ---------- Header ---------- */
+  header.intro{
+    padding: 8px 0 56px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  h1{
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: clamp(2.6rem, 7vw, 4rem);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    background: linear-gradient(135deg, var(--cyan), var(--blue));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    display: inline-block;
+  }
+
+  .role{
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1rem;
+    color: var(--amber);
+    margin-top: 12px;
+    font-weight: 500;
+  }
+
+  .role::before{
+    content: "// ";
+    color: var(--line);
+  }
+
+  .bio{
+    margin-top: 20px;
+    max-width: 56ch;
+    color: var(--muted);
+  }
+
+  .bio strong{
+    color: var(--text);
+    font-weight: 500;
+  }
+
+  .links{
+    margin-top: 28px;
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+  }
+
+  .links a{
+    color: var(--text);
+    text-decoration: none;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 2px;
+    transition: color 0.2s, border-color 0.2s, text-shadow 0.2s;
+  }
+
+  .links a:hover{
+    color: var(--cyan);
+    border-color: var(--cyan);
+    text-shadow: 0 0 10px rgba(78,225,194,0.5);
+  }
+
+  /* ---------- Terminal (signature element) ---------- */
+  .terminal{
+    margin-top: 32px;
+    background: var(--bg-card);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px -30px rgba(78,225,194,0.25);
+  }
+
+  .terminal-bar{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--line);
+    background: var(--bg-card-2);
+  }
+
+  .t-dot{ width: 11px; height: 11px; border-radius: 50%; }
+  .t-dot.red{ background: #ff5f56; }
+  .t-dot.yellow{ background: #ffbd2e; }
+  .t-dot.green{ background: #27c93f; }
+
+  .terminal-title{
+    margin-left: 8px;
+    color: var(--muted);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+  }
+
+  .terminal-body{
+    padding: 18px 20px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    line-height: 1.9;
+  }
+
+  .terminal-body .line .prompt{
+    color: var(--cyan);
+    margin-right: 8px;
+  }
+
+  .terminal-body .output{
+    color: var(--muted);
+    margin: 2px 0 14px 0;
+    opacity: 0;
+    transform: translateY(-4px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+  }
+
+  .terminal-body .output.visible{
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .terminal-body .output.ok{ color: var(--cyan); }
+  .terminal-body .output.ok::before{ content: "[OK] "; color: var(--cyan); font-weight: 700; }
+
+  .cursor{
+    display: inline-block;
+    color: var(--cyan);
+    animation: blink 1s step-end infinite;
+  }
+
+  @keyframes blink{ 50% { opacity: 0; } }
+
+  /* ---------- Nav ---------- */
+  nav{
+    position: sticky;
+    top: 0;
+    background: rgba(10,14,19,0.85);
+    backdrop-filter: blur(8px);
+    z-index: 10;
+    border-bottom: 1px solid var(--line);
+  }
+
+  nav ul{
+    list-style: none;
+    display: flex;
+    gap: 28px;
+    padding: 16px 0;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  nav a{
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+    position: relative;
+  }
+
+  nav a::before{ content: "#"; color: var(--line); margin-right: 4px; }
+
+  nav a:hover{ color: var(--cyan); }
+
+  /* ---------- Sections ---------- */
+  section{
+    padding: 64px 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  section:last-of-type{ border-bottom: none; }
+
+  .eyebrow{
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 28px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .eyebrow .sym{ color: var(--cyan); font-weight: 700; }
+
+  /* ---------- Timeline items (projets / expériences / formations) ---------- */
+  .timeline-item{
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    gap: 24px;
+    padding: 24px 16px;
+    margin: 0 -16px;
+    border-top: 1px solid var(--line);
+    border-radius: 8px;
+    box-shadow: inset 0 0 0 var(--cyan);
+    transition: background 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .timeline-item:first-child{ border-top: none; }
+
+  .timeline-item:hover{
+    background: rgba(78,225,194,0.04);
+    box-shadow: inset 3px 0 0 var(--cyan);
+  }
+
+  .timeline-item .date{
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--muted);
+    padding-top: 4px;
+  }
+
+  .timeline-item h3{
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 500;
+  }
+
+  .timeline-item .subtitle{
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--blue);
+    margin-top: 4px;
+  }
+
+  .timeline-item ul{
+    margin-top: 12px;
+    padding-left: 0;
+    list-style: none;
+    color: var(--muted);
+    max-width: 52ch;
+  }
+
+  .timeline-item ul li{
+    position: relative;
+    padding-left: 18px;
+    margin-bottom: 6px;
+  }
+
+  .timeline-item ul li::before{
+    content: ">";
+    position: absolute;
+    left: 0;
+    color: var(--cyan);
+    opacity: 0.6;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .tags{
+    margin-top: 14px;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .tags span{
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    padding: 4px 9px;
+    border-radius: 4px;
+    border: 1px solid var(--tag-color, var(--line));
+    color: var(--tag-color, var(--muted));
+    background: color-mix(in srgb, var(--tag-color, var(--muted)) 10%, transparent);
+  }
+
+  .tag-sys{ --tag-color: var(--cyan); }
+  .tag-net{ --tag-color: var(--blue); }
+  .tag-sec{ --tag-color: var(--amber); }
+  .tag-dev{ --tag-color: var(--violet); }
+  .tag-tool{ --tag-color: var(--muted); }
+
+  /* ---------- Profil ---------- */
+  .profil p{
+    max-width: 60ch;
+    margin-bottom: 16px;
+    color: var(--muted);
+  }
+
+  .profil p:last-child{ margin-bottom: 0; }
+
+  /* ---------- Skills ---------- */
+  .skills-grid{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px 40px;
+  }
+
+  .skills-grid h3{
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .skills-grid h3::before{
+    content: "";
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 2px;
+    background: var(--dot-color, var(--cyan));
+    box-shadow: 0 0 8px var(--dot-color, var(--cyan));
+  }
+
+  .skills-grid .sys::before{ --dot-color: var(--cyan); }
+  .skills-grid .net::before{ --dot-color: var(--blue); }
+  .skills-grid .sec::before{ --dot-color: var(--amber); }
+  .skills-grid .dev::before{ --dot-color: var(--violet); }
+  .skills-grid .tool::before{ --dot-color: var(--muted); }
+  .skills-grid .lang::before{ --dot-color: var(--cyan); }
+
+  .skills-grid ul{
+    list-style: none;
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.9;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  /* ---------- Contact ---------- */
+  .contact-row{
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+  }
+
+  .contact-row a, .contact-row span{
+    color: var(--text);
+    text-decoration: none;
+    transition: color 0.2s, text-shadow 0.2s;
+    width: fit-content;
+  }
+
+  .contact-row a::before{
+    content: "$ ";
+    color: var(--line);
+  }
+
+  .contact-row span::before{
+    content: "$ ";
+    color: var(--line);
+  }
+
+  .contact-row a:hover{
+    color: var(--cyan);
+    text-shadow: 0 0 10px rgba(78,225,194,0.5);
+  }
+
+  /* ---------- Footer ---------- */
+  footer{
+    padding: 32px 0 48px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--muted);
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  footer .ok{ color: var(--cyan); }
+
+  /* ---------- Scroll reveal ---------- */
+  .reveal{
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .reveal.visible{
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .reveal{ opacity: 1; transform: none; transition: none; }
+    .status .dot, .cursor{ animation: none; }
+    html{ scroll-behavior: auto; }
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 600px){
+    .timeline-item{
+      grid-template-columns: 1fr;
+      gap: 6px;
+      margin: 0 -12px;
+      padding: 20px 12px;
+    }
+    .skills-grid{
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+    nav ul{ gap: 18px; }
+    .terminal-body{ font-size: 12px; }
+    footer{ flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="status">
+    <span class="dot"></span>
+    <span>Système en ligne</span>
+    <span class="sep">·</span>
+    <span id="clock">--:--:--</span>
+    <span class="sep">·</span>
+    <span>Ris-Orangis, FR</span>
+  </div>
+
+  <header class="intro reveal">
+    <h1>Bezzi Mohamed</h1>
+    <p class="role">Technicien Systèmes &amp; Réseaux</p>
+    <p class="bio">
+      Actuellement en Titre Pro TSSR (Technicien Supérieur Systèmes et Réseaux, niveau Bac+2),
+      je suis à la recherche d'une <strong>alternance en administration systèmes, réseaux
+      &amp; cybersécurité</strong> pour intégrer un Bachelor Cyber &amp; Réseaux
+      (rythme 3 semaines en entreprise / 1 semaine en école).
+    </p>
+    <div class="links">
+      <a href="mailto:anawalidmohamed15@gmail.com">Email</a>
+      <a href="CVDEBM.pdf" target="_blank">CV (PDF)</a>
+    </div>
+
+    <div class="terminal">
+      <div class="terminal-bar">
+        <span class="t-dot red"></span>
+        <span class="t-dot yellow"></span>
+        <span class="t-dot green"></span>
+        <span class="terminal-title">bezzi@portfolio:~</span>
+      </div>
+      <div class="terminal-body">
+        <div class="line"><span class="prompt">$</span><span class="cmd" data-text="whoami"></span></div>
+        <div class="output">bezzi.mohamed — technicien systèmes &amp; réseaux</div>
+        <div class="line"><span class="prompt">$</span><span class="cmd" data-text="status --check alternance"></span></div>
+        <div class="output ok">disponible — admin sys &amp; réseaux, 3 sem. entreprise / 1 sem. école</div>
+        <div class="line"><span class="prompt">$</span> <span class="cursor">_</span></div>
+      </div>
+    </div>
+  </header>
+</div>
+
+<nav>
+  <div class="container">
+    <ul>
+      <li><a href="#profil">profil</a></li>
+      <li><a href="#projets">projets</a></li>
+      <li><a href="#experiences">experiences</a></li>
+      <li><a href="#formations">formations</a></li>
+      <li><a href="#competences">competences</a></li>
+      <li><a href="#contact">contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="container">
+
+  <section id="profil" class="profil reveal">
+    <div class="eyebrow"><span class="sym">$</span> cat profil.txt</div>
+    <p>
+      Étudiant en Titre Pro TSSR (Technicien Supérieur Systèmes et Réseaux, niveau Bac+2),
+      après une 1ère année de Bachelor Engineering à SUPINFO. J'ai acquis mes premières
+      expériences terrain en helpdesk et support réseau, et je construis en parallèle des
+      projets d'infrastructure complets : virtualisation, Active Directory, sécurité réseau
+      et automatisation par scripts.
+    </p>
+    <p>
+      Rigoureux et autonome, je cherche aujourd'hui une alternance qui me permettra d'approfondir
+      l'administration systèmes &amp; réseaux au sein d'une équipe IT.
+    </p>
+  </section>
+
+  <section id="projets" class="reveal">
+    <div class="eyebrow"><span class="sym">$</span> ls ~/projets</div>
+
+    <div class="timeline-item">
+      <span class="date">2025–2026</span>
+      <div>
+        <h3>Infrastructure — Sécurisation &amp; Automatisation</h3>
+        <ul>
+          <li>Déploiement et interconnexion de VMs Windows Server 2022, Debian et Windows Client.</li>
+          <li>Gestion de l'annuaire Active Directory (DNS/DHCP), centralisation des accès et ticketing avec GLPI, déploiement de GPO pour les scripts de démarrage.</li>
+          <li>Filtrage des flux LDAP/LDAPS sur PfSense, automatisation du basculement DHCP via PowerShell et troubleshooting dans l'Observateur d'événements.</li>
+        </ul>
+        <div class="tags">
+          <span class="tag-sys">Windows Server 2022</span>
+          <span class="tag-sys">Debian</span>
+          <span class="tag-sys">Active Directory</span>
+          <span class="tag-sys">GPO</span>
+          <span class="tag-sec">PfSense</span>
+          <span class="tag-dev">PowerShell</span>
+          <span class="tag-tool">GLPI</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <span class="date">2025–2026</span>
+      <div>
+        <h3>Architecture Réseau (Cisco)</h3>
+        <ul>
+          <li>Maquettage et simulation sur Cisco Packet Tracer avec configuration de VLANs et routage dynamique OSPF.</li>
+          <li>Déploiement de listes de contrôle d'accès (ACL) et filtrage inter-zones.</li>
+          <li>Configuration du Spanning Tree (STP) et du Port-Security pour la résilience du réseau.</li>
+        </ul>
+        <div class="tags">
+          <span class="tag-net">Cisco Packet Tracer</span>
+          <span class="tag-net">VLAN</span>
+          <span class="tag-net">OSPF</span>
+          <span class="tag-sec">ACL</span>
+          <span class="tag-net">STP</span>
+          <span class="tag-sec">Port-Security</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <span class="date">2025–2026</span>
+      <div>
+        <h3>Mise en place d'un système de ticketing</h3>
+        <ul>
+          <li>Déploiement et configuration de GLPI : catégorisation des incidents/demandes, gestion des priorités et suivi des tickets jusqu'à résolution.</li>
+          <li>Inventaire automatisé du parc (postes, licences, périphériques) et rattachement des équipements aux utilisateurs via Active Directory.</li>
+          <li>Création d'une base de connaissances pour accélérer le traitement des demandes récurrentes du helpdesk.</li>
+        </ul>
+        <div class="tags">
+          <span class="tag-tool">GLPI</span>
+          <span class="tag-sys">Active Directory</span>
+          <span class="tag-tool">Inventaire de parc</span>
+          <span class="tag-sys">Helpdesk</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <span class="date">2025–2026</span>
+      <div>
+        <h3>Supervision d'un parc informatique</h3>
+        <ul>
+          <li>Mise en place d'une supervision réseau et serveurs avec tableaux de bord de disponibilité et alertes en cas d'incident.</li>
+          <li>Scripts PowerShell de contrôle d'état (espace disque, services critiques, sauvegardes) avec rapports automatiques par email.</li>
+          <li>Documentation des procédures de surveillance et des seuils d'alerte pour faciliter la passation au helpdesk.</li>
+        </ul>
+        <div class="tags">
+          <span class="tag-tool">Supervision</span>
+          <span class="tag-net">SNMP</span>
+          <span class="tag-dev">PowerShell</span>
+          <span class="tag-sys">Windows Server</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <span class="date">2024–2025</span>
+      <div>
+        <h3>Site de présentation de films</h3>
+        <ul>
+          <li>Front-end responsive en HTML/CSS/JavaScript pour parcourir un catalogue de films avec recherche et filtres par genre.</li>
+          <li>Back-end PHP connecté à une base de données MySQL pour gérer les fiches films (titre, synopsis, notes, favoris) en CRUD.</li>
+          <li>Intégration d'une API externe pour récupérer automatiquement affiches, résumés et informations à jour sur les films.</li>
+        </ul>
+        <div class="tags">
+          <span class="tag-dev">HTML/CSS</span>
+          <span class="tag-dev">JavaScript</span>
+          <span class="tag-dev">PHP</span>
+          <span class="tag-sys">MySQL</span>
+          <span class="tag-net">API REST</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="experiences" class="reveal">
+    <div class="eyebrow"><span class="sym">$</span> history --jobs</div>
+
+    <div class="timeline-item">
+      <span class="date">Avril – Mai<br>2026</span>
+      <div>
+        <h3>Stagiaire Technicien Support Informatique</h3>
+        <p class="subtitle">Very Transport — Stage de 2 mois</p>
+        <ul>
+          <li>Gestion des comptes utilisateurs : création et paramétrage de comptes (droits d'accès, partages réseau) dans l'annuaire d'entreprise.</li>
+          <li>Sauvegarde &amp; restauration : suivi des sauvegardes planifiées et tests de restauration de fichiers à la demande des utilisateurs.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <span class="date">Juil. – Août<br>2025</span>
+      <div>
+        <h3>Stagiaire Systèmes &amp; Réseaux</h3>
+        <p class="subtitle">Very Transport — Stage de 2 mois</p>
+        <ul>
+          <li>Support &amp; gestion de parc : assistance aux utilisateurs (helpdesk), préparation, déploiement et maintenance des postes (matériel/logiciel).</li>
+          <li>Réseau de base : configuration de l'adressage IP, des périphériques et des accès au réseau local.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="formations" class="reveal">
+    <div class="eyebrow"><span class="sym">$</span> cat formations.log</div>
+
+    <div class="timeline-item">
+      <span class="date">2026–2027</span>
+      <div>
+        <h3>Bachelor Cyber &amp; Réseaux <span style="color:var(--amber); font-size:0.8rem; font-family:'JetBrains Mono', monospace;">(objectif — alternance)</span></h3>
+        <p class="subtitle">Niveau Bac+3 — à venir</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <span class="date">2025–2026</span>
+      <div>
+        <h3>Titre Pro TSSR</h3>
+        <p class="subtitle">Technicien Supérieur Systèmes et Réseaux (Bac+2) — En cours</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <span class="date">2024–2025</span>
+      <div>
+        <h3>Bachelor 1 (Engineering)</h3>
+        <p class="subtitle">SUPINFO</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <span class="date">2021–2022</span>
+      <div>
+        <h3>Baccalauréat Général</h3>
+        <p class="subtitle">Maths, Physique, SVT — Évry</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="competences" class="reveal">
+    <div class="eyebrow"><span class="sym">$</span> man competences</div>
+    <div class="skills-grid">
+      <div>
+        <h3 class="sys">Systèmes</h3>
+        <ul>
+          <li>Windows Server (2022)</li>
+          <li>Linux (Debian)</li>
+          <li>Active Directory, GPO</li>
+          <li>DNS, DHCP</li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="net">Réseaux</h3>
+        <ul>
+          <li>Cisco, routage</li>
+          <li>VLANs</li>
+          <li>LAN / WAN</li>
+          <li>Adressage IP</li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="sec">Sécurité</h3>
+        <ul>
+          <li>PfSense</li>
+          <li>Filtrage de flux</li>
+          <li>LDAP / LDAPS, ACL</li>
+          <li>Port-Security</li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="dev">Scripts &amp; Dev Fullstack</h3>
+        <ul>
+          <li>PowerShell, Bash, Python</li>
+          <li>HTML/CSS, JavaScript</li>
+          <li>PHP, SQL</li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="tool">Outils</h3>
+        <ul>
+          <li>VMware, VirtualBox, Hyper-V</li>
+          <li>GLPI</li>
+          <li>Pack Office</li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="lang">Langues</h3>
+        <ul>
+          <li>Français — B2</li>
+          <li>Anglais — B2</li>
+          <li>Arabe — B2</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="reveal">
+    <div class="eyebrow"><span class="sym">$</span> ping contact --resolve</div>
+    <p class="bio" style="margin-bottom:24px;">
+      Disponible pour un entretien ou pour échanger sur une opportunité d'alternance.
+    </p>
+    <div class="contact-row">
+      <a href="mailto:anawalidmohamed15@gmail.com">anawalidmohamed15@gmail.com</a>
+      <a href="CVDEBM.pdf" target="_blank">CVDEBM.pdf</a>
+    </div>
+  </section>
+
+  <footer>
+    <span>© 2026 Bezzi Mohamed</span>
+    <span class="ok">[OK] build stable — déployé en HTML / CSS / JS</span>
+  </footer>
+
+</div>
+
+<script>
+  // Live clock
+  function updateClock(){
+    const now = new Date();
+    const time = now.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+    const el = document.getElementById('clock');
+    if (el) el.textContent = time;
+  }
+  updateClock();
+  setInterval(updateClock, 1000);
+
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  if (reduceMotion){
+    reveals.forEach(el => el.classList.add('visible'));
+  } else {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting){
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    reveals.forEach(el => observer.observe(el));
+  }
+
+  // Terminal typing effect
+  function typeLines(){
+    const cmds = document.querySelectorAll('.terminal .cmd');
+    let i = 0;
+    function typeNext(){
+      if (i >= cmds.length) return;
+      const el = cmds[i];
+      const text = el.dataset.text;
+      let charIndex = 0;
+      const interval = setInterval(() => {
+        el.textContent = text.slice(0, charIndex + 1);
+        charIndex++;
+        if (charIndex === text.length){
+          clearInterval(interval);
+          const output = el.closest('.line').nextElementSibling;
+          if (output && output.classList.contains('output')){
+            setTimeout(() => output.classList.add('visible'), 150);
+          }
+          i++;
+          setTimeout(typeNext, 450);
+        }
+      }, 45);
+    }
+    typeNext();
+  }
+
+  if (reduceMotion){
+    document.querySelectorAll('.terminal .cmd').forEach(el => el.textContent = el.dataset.text);
+    document.querySelectorAll('.terminal .output').forEach(el => el.classList.add('visible'));
+  } else {
+    typeLines();
+  }
+</script>
+
+</body>
+</html>
